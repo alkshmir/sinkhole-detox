@@ -7,7 +7,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/alkshmir/sinkhole-detox.git/internal/domain"
+	"github.com/alkshmir/sinkhole-detox/internal/domain"
 	"github.com/spf13/viper"
 )
 

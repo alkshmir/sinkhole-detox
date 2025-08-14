@@ -3,7 +3,7 @@ package config
 import (
 	"context"
 
-	"github.com/alkshmir/sinkhole-detox.git/internal/domain"
+	"github.com/alkshmir/sinkhole-detox/internal/domain"
 )
 
 type BlockerFactory struct {

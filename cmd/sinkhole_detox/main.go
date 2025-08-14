@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/alkshmir/sinkhole-detox.git/internal/infra/config"
-	"github.com/alkshmir/sinkhole-detox.git/internal/presentation"
+	"github.com/alkshmir/sinkhole-detox/internal/infra/config"
+	"github.com/alkshmir/sinkhole-detox/internal/presentation"
 )
 
 var srv *presentation.Server

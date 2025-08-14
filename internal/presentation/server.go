@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/alkshmir/sinkhole-detox.git/internal/domain"
+	"github.com/alkshmir/sinkhole-detox/internal/domain"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )

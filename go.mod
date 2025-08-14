@@ -1,4 +1,4 @@
-module github.com/alkshmir/sinkhole-detox.git
+module github.com/alkshmir/sinkhole-detox
 
 go 1.25.0
 
