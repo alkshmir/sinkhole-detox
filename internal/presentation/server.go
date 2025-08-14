@@ -3,7 +3,6 @@ package presentation
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/alkshmir/sinkhole-detox/internal/domain"
 	"github.com/labstack/echo/v4"
@@ -45,7 +44,7 @@ func (s *Server) Start() {
 }
 
 func (s *Server) genHosts(c echo.Context) error {
-	t := time.Now()
+	t := nowFunc()
 	entries := s.generator.Gen(t)
 	var response string
 	for _, entry := range entries {
