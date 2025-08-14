@@ -5,6 +5,8 @@ import (
 	"log/slog"
 	"os"
 
+	_ "time/tzdata" // Load timezone data
+
 	"github.com/alkshmir/sinkhole-detox/internal/infra/config"
 	"github.com/alkshmir/sinkhole-detox/internal/presentation"
 )
