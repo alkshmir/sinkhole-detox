@@ -18,7 +18,7 @@ FROM scratch
 WORKDIR /
 
 COPY --from=builder /build/main /main
-COPY --from=0 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=0 /etc/passwd /etc/passwd
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /etc/passwd /etc/passwd
 USER nobody
 CMD [ "/main" ]
