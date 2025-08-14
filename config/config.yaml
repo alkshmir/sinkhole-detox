@@ -1,0 +1,28 @@
+server:
+  port: 8080
+blockers:
+  - name: "twitter"
+    domain: "twitter.com"
+    rules:
+      - type: everyday
+        ops: block
+        # RFC 3339 time format
+        start: "00:00"
+        end: "05:00"
+      - type: weekday
+        ops: block
+        start: "08:00"
+        end: "18:00"
+        weekdays: [1, 2, 3, 4, 5] # Monday to Friday
+  - name: "x"
+    domain: "x.com"
+    rules:
+      - type: everyday
+        ops: block
+        start: "00:00"
+        end: "05:00"
+      - type: weekday
+        ops: block
+        start: "10:00"
+        end: "16:00"
+        weekdays: [1, 2, 3, 4, 5] # Monday to Friday
