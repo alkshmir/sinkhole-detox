@@ -5,7 +5,7 @@ This is compatible for DNS-sinkhole such as [0xERR0R/blocky](https://github.com/
 
 ## How It Works
 
-Sinkhole-Detox returns simple plain text in hosts file format based on its request time.
+Sinkhole-Detox returns simple plain text in [hosts file format](https://en.wikipedia.org/wiki/Hosts_(file)) based on its request time.
 
 ## Configuraiton
 
@@ -13,3 +13,8 @@ See [config/config.yaml](./config/config.yaml)
 
 TBW
 
+## Deployment
+
+```
+docker build -t sinkhole-detox -f deployments/Dockerfile .
+```
