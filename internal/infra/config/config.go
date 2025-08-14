@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log/slog"
 	"net"
-	"os"
 	"time"
 
 	"github.com/alkshmir/sinkhole-detox.git/internal/domain"
@@ -36,14 +35,11 @@ type Rule struct {
 	Weekdays []int  `mapstructure:"weekdays"` // 0=Sunday, 1=Monday, ..., 6=Saturday
 }
 
-func LoadConfig() (*Config, error) {
-	configPath := "config/config.yaml"
-	if envPath := os.Getenv("CONFIG_FILE_PATH"); envPath != "" {
-		configPath = envPath
-	}
-	viper.SetConfigFile(configPath)
+func LoadConfig(path string) (*Config, error) {
 
-	slog.Info("Loading configuration from file", "path", configPath)
+	viper.SetConfigFile(path)
+
+	slog.Info("Loading configuration from file", "path", path)
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
 	}

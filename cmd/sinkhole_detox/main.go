@@ -12,7 +12,12 @@ import (
 var srv *presentation.Server
 
 func init() {
-	conf, err := config.LoadConfig()
+	configPath := "config/config.yaml"
+	if envPath := os.Getenv("CONFIG_FILE_PATH"); envPath != "" {
+		configPath = envPath
+	}
+
+	conf, err := config.LoadConfig(configPath)
 	if err != nil {
 		slog.Error("failed to load config", "error", err)
 		os.Exit(1)

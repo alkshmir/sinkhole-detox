@@ -39,16 +39,16 @@ type BlockRule interface {
 }
 
 type EveryDayRule struct {
-	ops  BlockOps
-	from time.Time // inclusive
-	to   time.Time // exclusive
+	Op   BlockOps
+	From time.Time // inclusive
+	To   time.Time // exclusive
 }
 
 func NewEveryDayRule(ops string, from, to time.Time) (BlockRule, error) {
 	r := EveryDayRule{
-		ops:  BlockOps(ops),
-		from: from,
-		to:   to,
+		Op:   BlockOps(ops),
+		From: from,
+		To:   to,
 	}
 	if err := r.Validate(); err != nil {
 		return nil, fmt.Errorf("failed to create everyday rule: %w", err)
@@ -57,10 +57,10 @@ func NewEveryDayRule(ops string, from, to time.Time) (BlockRule, error) {
 }
 
 func (s EveryDayRule) Validate() error {
-	if err := s.ops.Validate(); err != nil {
+	if err := s.Op.Validate(); err != nil {
 		return fmt.Errorf("invalid ops: %w", err)
 	}
-	if s.from.After(s.to) {
+	if s.From.After(s.To) {
 		return fmt.Errorf("from time must be before to time")
 	}
 	return nil
@@ -68,12 +68,12 @@ func (s EveryDayRule) Validate() error {
 }
 
 func (s EveryDayRule) Ops() BlockOps {
-	return s.ops
+	return s.Op
 }
 
 func (s EveryDayRule) IsActive(t time.Time) bool {
-	from := time.Date(t.Year(), t.Month(), t.Day(), s.from.Hour(), s.from.Minute(), 0, 0, t.Location())
-	to := time.Date(t.Year(), t.Month(), t.Day(), s.to.Hour(), s.to.Minute(), 0, 0, t.Location())
+	from := time.Date(t.Year(), t.Month(), t.Day(), s.From.Hour(), s.From.Minute(), 0, 0, t.Location())
+	to := time.Date(t.Year(), t.Month(), t.Day(), s.To.Hour(), s.To.Minute(), 0, 0, t.Location())
 	slog.Info("from/to", "from", from, "to", to, "t", t)
 	if from.After(t) || to.Before(t) {
 		return false
@@ -82,19 +82,19 @@ func (s EveryDayRule) IsActive(t time.Time) bool {
 }
 
 type WeekdayRule struct {
-	ops  BlockOps
-	from time.Time // inclusive
-	to   time.Time // exclusive
-	// weekdays is a list of days of the week when this rule is active.
-	weekdays []time.Weekday
+	Op   BlockOps
+	From time.Time // inclusive
+	To   time.Time // exclusive
+	// Weekdays is a list of days of the week when this rule is active.
+	Weekdays []time.Weekday
 }
 
 func NewWeekdayRule(ops string, from, to time.Time, weekdays []time.Weekday) (BlockRule, error) {
 	r := WeekdayRule{
-		ops:      BlockOps(ops),
-		from:     from,
-		to:       to,
-		weekdays: weekdays,
+		Op:       BlockOps(ops),
+		From:     from,
+		To:       to,
+		Weekdays: weekdays,
 	}
 	if err := r.Validate(); err != nil {
 		return nil, fmt.Errorf("failed to create weekday rule: %w", err)
@@ -103,16 +103,16 @@ func NewWeekdayRule(ops string, from, to time.Time, weekdays []time.Weekday) (Bl
 }
 
 func (s WeekdayRule) Validate() error {
-	if err := s.ops.Validate(); err != nil {
+	if err := s.Op.Validate(); err != nil {
 		return fmt.Errorf("invalid ops: %w", err)
 	}
-	if s.from.After(s.to) {
+	if s.From.After(s.To) {
 		return fmt.Errorf("from time must be before to time")
 	}
-	if len(s.weekdays) == 0 {
+	if len(s.Weekdays) == 0 {
 		return fmt.Errorf("weekdays cannot be empty")
 	}
-	for _, day := range s.weekdays {
+	for _, day := range s.Weekdays {
 		if day < time.Sunday || day > time.Saturday {
 			return fmt.Errorf("invalid weekday: %v", day)
 		}
@@ -121,15 +121,15 @@ func (s WeekdayRule) Validate() error {
 }
 
 func (s WeekdayRule) Ops() BlockOps {
-	return s.ops
+	return s.Op
 }
 
 func (s WeekdayRule) IsActive(t time.Time) bool {
-	from := time.Date(t.Year(), t.Month(), t.Day(), s.from.Hour(), s.from.Minute(), 0, 0, t.Location())
-	to := time.Date(t.Year(), t.Month(), t.Day(), s.to.Hour(), s.to.Minute(), 0, 0, t.Location())
+	from := time.Date(t.Year(), t.Month(), t.Day(), s.From.Hour(), s.From.Minute(), 0, 0, t.Location())
+	to := time.Date(t.Year(), t.Month(), t.Day(), s.To.Hour(), s.To.Minute(), 0, 0, t.Location())
 
 	w := t.Weekday()
-	for _, day := range s.weekdays {
+	for _, day := range s.Weekdays {
 		if day != w {
 			continue
 		}
