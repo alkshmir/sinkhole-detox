@@ -20,7 +20,8 @@ type HostsEntry struct {
 }
 
 func (e HostsEntry) String() string {
-	return e.IP.String() + " " + e.Domain
+	//return e.IP.String() + " " + e.Domain
+	return e.Domain
 }
 
 func (g *HostsGenerator) Gen(t time.Time) []HostsEntry {
