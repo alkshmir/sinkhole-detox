@@ -15,6 +15,12 @@ TBW
 
 ## Deployment
 
+Build:
 ```
 docker build -t sinkhole-detox -f deployments/Dockerfile .
+```
+
+Deployment:
+```
+docker run --rm -v "$(pwd)/config:/config:ro" sinkhole-detox:latest  
 ```
