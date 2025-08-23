@@ -39,10 +39,10 @@ jobs:
         images: ${{ env.IMAGE }}
         tags: |
           # リリースタグと同名（例: v1.2.3 → v1.2.3）
-          type=semver,pattern={{version}}
+          type=semver,pattern=v{{version}}
           # セマンティックバージョンの浮動タグ（例: v1.2.3 → 1.2, 1）
-          type=semver,pattern={{major}}.{{minor}}
-          type=semver,pattern={{major}}
+          type=semver,pattern=v{{major}}.{{minor}}
+          type=semver,pattern=v{{major}}
       # TODO: add latest tag when release is a full release
 
     - uses: docker/build-push-action@v6
