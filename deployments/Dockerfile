@@ -9,7 +9,7 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o main ./cmd/sinkhole_detox/main.go
+RUN CGO_ENABLED=0 go build -o main ./cmd/sinkhole_detox
 RUN echo "nobody:x:65534:65534:Nobody:/:" > /etc/passwd
 
 # App container

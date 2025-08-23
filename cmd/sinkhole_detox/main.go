@@ -4,6 +4,7 @@ import (
 	"context"
 	"log/slog"
 	"os"
+	"runtime/debug"
 
 	_ "time/tzdata" // Load timezone data
 
@@ -13,7 +14,26 @@ import (
 
 var srv *presentation.Server
 
+func showVersion() {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		slog.Error("failed to read build info")
+		return
+	}
+	slog.Debug("Build info", "info", info)
+	var commit string
+	for _, setting := range info.Settings {
+		if setting.Key == "vcs.revision" {
+			commit = setting.Value
+			break
+		}
+	}
+	slog.Info("Sinkhole-Detox", "GoVersion", info.GoVersion, "Version", info.Main.Version, "Commit", commit)
+}
+
 func init() {
+	showVersion()
+
 	configPath := "config/config.yaml"
 	if envPath := os.Getenv("CONFIG_FILE_PATH"); envPath != "" {
 		configPath = envPath
