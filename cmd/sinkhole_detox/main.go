@@ -32,6 +32,8 @@ func showVersion() {
 }
 
 func init() {
+	showVersion()
+
 	configPath := "config/config.yaml"
 	if envPath := os.Getenv("CONFIG_FILE_PATH"); envPath != "" {
 		configPath = envPath
@@ -58,6 +60,5 @@ func init() {
 }
 
 func main() {
-	showVersion()
 	srv.Start()
 }
